@@ -4,11 +4,11 @@ const request = require('./request');
 
 describe('Coffee API', () => {
 
-    beforeEach(() => {
-        return mongo.then(db => {
-            return db.collection('coffee').remove();
-        });
-    });
+    // beforeEach(() => {
+    //     return mongo.then(db => {
+    //         return db.collection('coffee').remove();
+    //     });
+    // });
 
     let drink;
 

@@ -32,4 +32,12 @@ describe('Bagel API', () => {
         assert.ok(bagel._id);
     });
 
+    it('gets a bagel by id', () => {
+        return request
+            .get(`/bagels/${bagel._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, bagel);
+            });
+    });
+
 });

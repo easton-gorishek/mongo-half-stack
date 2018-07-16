@@ -51,7 +51,7 @@ describe('Coffee API', () => {
             });
     });
 
-    it.skip('removes a coffee drink', () => {
+    it('removes a coffee drink', () => {
         return request
             .del(`/coffee/${drink._id}`)
             .then(() => {
@@ -59,6 +59,16 @@ describe('Coffee API', () => {
             })
             .then(({ body }) => {
                 assert.deepEqual(body, []);
+            });
+    });
+
+    it('updates a coffee drink', () => {
+        drink.name = 'Mocha';
+        return request
+            .put(`/coffee/${drink._id}`)
+            .send(drink)
+            .then(({ body }) => {
+                assert.deepEqual(body, drink);
             });
     });
 

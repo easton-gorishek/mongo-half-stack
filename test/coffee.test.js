@@ -30,6 +30,13 @@ describe('Coffee API', () => {
             });
     });
 
+    it('returns a 404', () => {
+        return request
+            .get('/bad')
+            .then(res => {
+                assert.equal(res.status, 404);
+            });
+    });
 
     it('saves a drink', () => {
         assert.ok(drink._id);

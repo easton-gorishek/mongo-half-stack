@@ -7,6 +7,18 @@
     <title>Mongo Half Stack</title>
 </head>
 <body>
-    
+    <ul id="coffee"></ul>
+    <script>
+        fetch('/coffee')
+            .then(response => response.json())
+            .then(coffees => {
+                const ul = document.getElementById('coffee');
+                coffees.forEach(coffee => {
+                    const li = document.createElement('li');
+                    li.innerText = `${coffee.name}: ${coffee.price} / ${coffee.size}`;
+                    ul.appendChild(li);
+                });
+            });
+    </script>
 </body>
 </html>

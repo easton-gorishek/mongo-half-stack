@@ -58,4 +58,16 @@ describe('Bagel API', () => {
                 assert.deepEqual(body, []);
             });
     });
+
+    it('updates a bagel', () => {
+        bagel.name = 'Onion Bagel';
+        bagel.price = 3.00;
+
+        return request 
+            .put(`/bagels/${bagel._id}`)
+            .send(bagel)
+            .then(({ body }) => {
+                assert.deepEqual(body, bagel);
+            });
+    });
 });

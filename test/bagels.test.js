@@ -40,4 +40,22 @@ describe('Bagel API', () => {
             });
     });
 
+    it('gets all bagels', () => {
+        return request
+            .get('/bagels')
+            .then(({ body }) => {
+                assert.deepEqual(body, [bagel]);
+            });       
+    });
+
+    it('removes a bagel', () => {
+        return request
+            .del(`/bagels/${bagel._id}`)
+            .then(() => {
+                return request.get('/bagels');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
+            });
+    });
 });

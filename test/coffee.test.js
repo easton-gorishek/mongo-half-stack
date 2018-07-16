@@ -4,11 +4,11 @@ const request = require('./request');
 
 describe('Coffee API', () => {
 
-    // beforeEach(() => {
-    //     return mongo.then(db => {
-    //         return db.collection('coffee').remove();
-    //     });
-    // });
+    beforeEach(() => {
+        return mongo.then(db => {
+            return db.collection('coffee').remove();
+        });
+    });
 
     let drink;
 
@@ -33,6 +33,43 @@ describe('Coffee API', () => {
 
     it('saves a drink', () => {
         assert.ok(drink._id);
+    });
+
+    it('gets a coffee drink by id', () => {
+        return request
+            .get(`/coffee/${drink._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, drink);
+            });
+    });
+
+    it('gets all coffee drinks', () => {
+        return request
+            .get('/coffee')
+            .then(({ body }) => {
+                assert.deepEqual(body, [drink]);
+            });
+    });
+
+    it('removes a coffee drink', () => {
+        return request
+            .del(`/coffee/${drink._id}`)
+            .then(() => {
+                return request.get('/coffee');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
+            });
+    });
+
+    it('updates a coffee drink', () => {
+        drink.name = 'Mocha';
+        return request
+            .put(`/coffee/${drink._id}`)
+            .send(drink)
+            .then(({ body }) => {
+                assert.deepEqual(body, drink);
+            });
     });
 
 });

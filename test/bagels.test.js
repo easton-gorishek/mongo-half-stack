@@ -28,6 +28,14 @@ describe('Bagel API', () => {
             });
     });
 
+    it('returns a 404', () => {
+        return request
+            .get('/bad2')
+            .then(res => {
+                assert.equal(res.status, 404);
+            });
+    });
+
     it('saves a bagel', () => {
         assert.ok(bagel._id);
     });

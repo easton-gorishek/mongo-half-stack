@@ -35,11 +35,30 @@ describe('Coffee API', () => {
         assert.ok(drink._id);
     });
 
-    it('gets a coffee by id', () => {
+    it('gets a coffee drink by id', () => {
         return request
             .get(`/coffee/${drink._id}`)
             .then(({ body }) => {
                 assert.deepEqual(body, drink);
+            });
+    });
+
+    it('gets all coffee drinks', () => {
+        return request
+            .get('/coffee')
+            .then(({ body }) => {
+                assert.deepEqual(body, [drink]);
+            });
+    });
+
+    it.skip('removes a coffee drink', () => {
+        return request
+            .del(`/coffee/${drink._id}`)
+            .then(() => {
+                return request.get('/coffee');
+            })
+            .then(({ body }) => {
+                assert.deepEqual(body, []);
             });
     });
 

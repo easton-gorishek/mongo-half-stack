@@ -4,11 +4,11 @@ const request = require('./request');
 
 describe('Coffee API', () => {
 
-    // beforeEach(() => {
-    //     return mongo.then(db => {
-    //         return db.collection('coffee').remove();
-    //     });
-    // });
+    beforeEach(() => {
+        return mongo.then(db => {
+            return db.collection('coffee').remove();
+        });
+    });
 
     let drink;
 
@@ -33,6 +33,14 @@ describe('Coffee API', () => {
 
     it('saves a drink', () => {
         assert.ok(drink._id);
+    });
+
+    it('gets a coffee by id', () => {
+        return request
+            .get(`/coffee/${drink._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, drink);
+            });
     });
 
 });
